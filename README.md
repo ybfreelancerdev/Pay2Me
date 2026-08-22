@@ -749,6 +749,24 @@ Potential future enhancements include:
 
 ---
 
+## Screenshots
+
+### Admin Dashboard
+
+![Pay2Me Admin Dashboard](docs/screenshots/admin-dashboard.png)
+
+### User Management
+
+![Pay2Me User Management](docs/screenshots/user-management.png)
+
+### Send Money
+
+![Pay2Me Send Money](docs/screenshots/send-money.png)
+
+### Hawala Entry
+
+![Pay2Me Hawala Entry](docs/screenshots/hawala-entry.png)
+
 # License
 
 This project is proprietary software.
