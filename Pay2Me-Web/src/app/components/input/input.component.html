@@ -1,0 +1,25 @@
+<mat-label *ngIf="isLabel">{{placeHolder}}</mat-label>
+<mat-form-field [appearance]="appearance" [class]="cssClass" (autocomplete)="false">
+    <mat-label *ngIf="isFlotingLabel">{{placeHolder}}</mat-label>
+    <input matInput [required]="isRequired" [placeholder]="placeHolder" [type]="hide ? type : 'text'"
+        [formControl]="control" [readonly]="isdisabled" [disabled]="isdisabled"
+        (change)="onChange($event)" (keyup)="onKeyup($event)" [maxlength]="maxLength"
+        [class]="inputCssClass">
+
+    <mat-icon matSuffix *ngIf="!isPassword">{{icon}}</mat-icon>
+
+    <mat-icon matSuffix *ngIf="isPassword" class="pointer" (click)="hide = !hide">{{hide ? 'visibility_off' :
+        'visibility'}}</mat-icon>
+
+    <mat-error *ngIf="control.hasError('required') && control.touched">
+        Input Required
+    </mat-error>
+
+    <mat-error *ngIf="control.hasError('pattern') && control.touched">
+        Invalid Input
+    </mat-error>
+
+    <mat-error *ngIf="control.hasError('confirmedValidator') && control.touched">
+        Password and confirm password not matched.
+    </mat-error>
+</mat-form-field>

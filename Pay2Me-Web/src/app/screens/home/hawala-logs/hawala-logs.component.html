@@ -1,0 +1,65 @@
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between">
+        <h5 class="f-w-500 text-center m-0">Hawala Logs</h5>
+        <app-input [cssClass]="'w-100 remove-wrapper'" [control]="searchControl" [isFlotingLabel]="true"
+            placeHolder="Search..." (onKeyupEvent)="onSearchItem($event)"></app-input>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <ul class="nav nav-pills mt-4">
+            <li class="nav-item">
+                <a (click)="onTabChanged(1)" class="nav-link {{selectedTab === 1 ? 'active' : ''}}" aria-current="page" href="javascript:void(0)">Active</a>
+            </li>
+            <li class="nav-item">
+                <a (click)="onTabChanged(2)" class="nav-link {{selectedTab === 2 ? 'active' : ''}}" href="javascript:void(0)">Deleted</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="px-0 pb-2 mt-3">
+        <div class="table-responsive scrollbar-table rounded-table">
+            <table class="table table-hover rounded-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Reference Id</th>
+                        <th scope="col">Debit Party</th>
+                        <th scope="col">Credit Party</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Remarks</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="col" *ngIf="selectedTab === 2">Deleted Date</th>
+                        <th scope="col" *ngIf="selectedTab === 1">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="transactions.length > 0">
+                    <ng-container *ngFor="let data of transactions">
+                        <tr>
+                            <td class="padding">{{data.transactionid}}</td>
+                            <td class="padding">{{data.debitparty}}</td>
+                            <td class="padding">{{data.creditparty}}</td>
+                            <td class="padding">{{data.amount}}</td>
+                            <td class="padding">{{data.remarks}}</td>
+                            <td class="padding">{{data.createddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                            <td class="padding" *ngIf="selectedTab === 2">{{data.deleteddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                            <td class="no-padding" *ngIf="selectedTab === 1">
+                                <app-button [btntype]="'icon'" [color]="'white'" [cssClass]="'option-btn'" [text]="''"
+                                    [icon]="'delete'" (onClickEvent)="deleteHawalaEntry(data)">
+                                </app-button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tbody *ngIf="transactions.length == 0">
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <span>No Record Found</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex - 1"
+            [length]="length" *ngIf="transactions.length > 0" (page)="pageEvent = getServerData($event)"
+            showFirstLastButtons></mat-paginator>
+    </div>
+</div>

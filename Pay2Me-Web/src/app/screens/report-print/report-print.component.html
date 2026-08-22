@@ -1,0 +1,41 @@
+<div class="bg-white">
+    <div class="d-flex flex-wrap justify-content-start mb-3">
+        <h5 class="f-w-500 text-center m-0 p-0">Reports</h5>
+    </div>
+    <div class="overflow-x: auto;">
+        <table class="report-print-table">
+            <tr>
+                <th>Username</th>
+                <th>Transaction Id</th>
+                <th>Amount</th>
+                <th>Account Details</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Remarks</th>
+            </tr>
+            <tr *ngFor="let data of reportList">
+                <td class="mx-2">{{data.username}}</td>
+                <td class="mx-2">{{data.transactionid}}</td>
+                <td class="mx-2">{{data.amount}}</td>
+                <td class="mx-2">
+                    <ng-container *ngIf="data.accountno">
+                        <div [innerHTML]="formatDesc(data)"></div>
+                    </ng-container>
+                    <ng-container *ngIf="!data.accountno">
+                        <span>{{data.descriptions}}</span>
+                    </ng-container>
+                </td>
+                <td class="mx-2">{{data.createddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                <td class="mx-2">
+                    <span *ngIf="data.paymentstatus === 'Pending'" class="pending-tag">{{data.paymentstatus}}</span>
+                    <span *ngIf="data.paymentstatus === 'Withdraw'" class="withdraw-tag">{{data.paymentstatus}}</span>
+                    <span *ngIf="data.paymentstatus === 'Confirm'" class="Confirm-tag">{{data.paymentstatus}}</span>
+                    <span *ngIf="data.paymentstatus === 'Refunded'" class="refund-tag">{{data.paymentstatus}}</span>
+                    <span *ngIf="data.paymentstatus === 'Rejected'" class="Rejected-tag">{{data.paymentstatus}}</span>
+                    <span *ngIf="data.paymentstatus === 'InProgress'" class="InProcess-tag">{{data.paymentstatus}}</span>
+                </td>
+                <td class="mx-2">{{data.remarks}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

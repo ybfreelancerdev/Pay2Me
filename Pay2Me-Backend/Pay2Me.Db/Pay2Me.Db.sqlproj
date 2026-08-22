@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Pay2Me.Db</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{4bd63442-319f-47bc-a5e6-cc203764ea05}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Pay2Me.Db</RootNamespace>
+    <AssemblyName>Pay2Me.Db</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Beneficiary.sql" />
+    <Build Include="dbo\Tables\PaymentStatus.sql" />
+    <Build Include="dbo\Tables\Roles.sql" />
+    <Build Include="dbo\Tables\Parties.sql" />
+    <Build Include="dbo\Tables\Settings.sql" />
+    <Build Include="dbo\Tables\TransactionLogs.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\TransactionStatus.sql" />
+    <Build Include="dbo\Tables\UserLocationlogs.sql" />
+    <Build Include="dbo\Tables\PartyCommission.sql" />
+    <Build Include="dbo\Tables\TransactionTypes.sql" />
+    <Build Include="dbo\Tables\Transactions.sql" />
+    <Build Include="dbo\Stored Procedures\Beneficiary_AddBeneficiary.sql" />
+    <Build Include="dbo\Stored Procedures\Beneficiary_UpdateBeneficiary.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetTransactionList.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetGeneralReport.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetTransactionList_Backup.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetAllRequestList.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_AcceptRejectRequest.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_AddHawalaEntry.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetReports.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_DeleteHawalaEntry.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetHawalaLogs.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetTransactionDetail.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetHawalaTransactionList.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetHawalaUsers.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_IsSettleAmount.sql" />
+    <Build Include="dbo\Stored Procedures\User_GetUserInfoById.sql" />
+    <Build Include="dbo\Stored Procedures\User_EditUser.sql" />
+    <Build Include="dbo\Stored Procedures\User_GetPartyList.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetInProcessRequestList.sql" />
+    <Build Include="dbo\Stored Procedures\User_SetTransactionLimit.sql" />
+    <Build Include="dbo\Stored Procedures\User_GetParties.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_AddTransaction.sql" />
+    <Build Include="dbo\Stored Procedures\User_GetUserLimit.sql" />
+    <Build Include="dbo\Stored Procedures\User_GetUserById.sql" />
+    <Build Include="dbo\Stored Procedures\Auth_GetMerchatUsers.sql" />
+    <Build Include="dbo\Stored Procedures\Auth_Login.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetRequestCount.sql" />
+    <Build Include="dbo\Stored Procedures\Auth_Register.sql" />
+    <Build Include="dbo\Stored Procedures\Auth_RequestTransaction.sql" />
+    <Build Include="dbo\Stored Procedures\Auth_UserInfo.sql" />
+    <Build Include="dbo\Stored Procedures\Settings_GetMinMaxValueLimits.sql" />
+    <Build Include="dbo\Stored Procedures\User_AddUser.sql" />
+    <Build Include="dbo\Stored Procedures\Transactions_GetGeneralReportRequests.sql" />
+    <Build Include="dbo\Stored Procedures\Beneficiary_DeleteBeneficiary.sql" />
+    <Build Include="dbo\Stored Procedures\Beneficiary_GetBeneficiaryList.sql" />
+    <Build Include="dbo\Stored Procedures\Beneficiary_GetUserBeneficiaries.sql" />
+    <Build Include="dbo\Stored Procedures\Settings_AddUpdateMinMaxValueSetting.sql" />
+    <Build Include="dbo\Stored Procedures\Settings_AddUpdateNotificationSetting.sql" />
+    <Build Include="dbo\Stored Procedures\Settings_AddUpdatePremiunAdsSetting.sql" />
+    <Build Include="dbo\Stored Procedures\Settings_GetMinMaxValueSetting.sql" />
+    <Build Include="dbo\Stored Procedures\Settings_GetNotificationSetting.sql" />
+    <Build Include="dbo\Stored Procedures\Settings_GetPremiumAdsSetting.sql" />
+    <Build Include="dbo\Stored Procedures\User_AddUserBalance.sql" />
+    <Build Include="dbo\Stored Procedures\User_AddUserLocationLog.sql" />
+    <Build Include="dbo\Stored Procedures\User_AddWithdraw.sql" />
+    <Build Include="dbo\Stored Procedures\User_ChangePassword.sql" />
+    <Build Include="dbo\Stored Procedures\User_DisableAuthentication.sql" />
+    <Build Include="dbo\Stored Procedures\User_GetUser.sql" />
+    <Build Include="dbo\Stored Procedures\User_GetUserList.sql" />
+    <Build Include="dbo\Stored Procedures\User_UpdateAuthenticationKey.sql" />
+    <Build Include="dbo\User Defined Types\ThirdPartyType.sql" />
+  </ItemGroup>
+</Project>

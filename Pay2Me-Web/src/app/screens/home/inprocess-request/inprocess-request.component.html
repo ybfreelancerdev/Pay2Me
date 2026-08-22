@@ -1,0 +1,81 @@
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between px-3">
+        <h5 class="f-w-500 text-center m-0">Inprocess Requests</h5>
+        <app-input [cssClass]="'w-100 remove-wrapper'" [control]="searchControl" [isFlotingLabel]="true"
+            placeHolder="Search..." (onKeyupEvent)="onSearchItem($event)"></app-input>
+    </div>
+    <div class="px-0 pb-2 mt-3">
+        <div class="table-responsive scrollbar-table rounded-table">
+            <table class="table table-hover rounded-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Transaction Id</th>
+                        <th scope="col">ReferenceId</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Descriptions</th>
+                        <th scope="col">Created date</th>
+                        <th scope="col">Assign Party</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="allRequests.length > 0">
+                    <ng-container *ngFor="let data of allRequests">
+                        <tr>
+                            <td class="padding">{{data.username}}</td>
+                            <td class="padding">{{data.transactionid}}</td>
+                            <td class="padding">{{data.referenceid}}</td>
+                            <td class="padding">{{data.amount}}</td>
+                            <td class="padding">
+                                <ng-container *ngIf="data.accountno">
+                                    <div [innerHTML]="formatDesc(data)"></div>
+                                    <button class="close-button" mat-icon-button (click)="copyDetails(data)">
+                                        <mat-icon>content_copy</mat-icon>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="!data.accountno">
+                                    {{data.descriptions}}
+                                </ng-container>
+                            </td>
+                            <td class="padding">{{data.createddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                            <td class="padding">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Select Party</mat-label>
+                                    <mat-select [(ngModel)]="data.assignparty" name="party">
+                                        <mat-option *ngFor="let party of parties" [value]="party.id">{{party.username}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                            <td class="padding">
+                                <div class="col-md-12 col-12">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Remarks</mat-label>
+                                        <input matInput [(ngModel)]="data.remarks" maxlength="500" [class]="'uppercase-input'">
+                                    </mat-form-field>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <app-button [color]="'primary'" [cssClass]="'px-4 mx-2'" [text]="'Accept'"
+                                        [btnDisable]="!(data.assignparty !== 0)" (onClickEvent)="onSubmit(data, 'ACCEPT')">
+                                    </app-button>
+                                    <app-button [color]="'primary'" [cssClass]="'px-4 mx-2'" [text]="'Reject'"
+                                        [btnDisable]="!(data.remarks !== '')" (onClickEvent)="onSubmit(data, 'REJECT')">
+                                    </app-button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tbody *ngIf="allRequests.length == 0">
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <span>No Record Found</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex - 1"
+            [length]="length" *ngIf="allRequests.length > 0" (page)="pageEvent = getServerData($event)"
+            showFirstLastButtons></mat-paginator>
+    </div>
+</div>

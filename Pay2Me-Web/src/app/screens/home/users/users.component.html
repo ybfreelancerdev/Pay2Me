@@ -1,0 +1,169 @@
+<div class="container-fluid py-4">
+    <ng-container *ngIf="!isForm">
+        <div class="d-flex flex-wrap justify-content-between mar-bot">
+            <div class="title flex-grow-1 align-content-center text-center text-md-start mb-2 mb-md-0">
+                <h5 class="f-w-500 m-0">Users</h5>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-2">
+                <app-button [cssClass]="'px-4'" [color]="'primary'" [text]="'Add User'"
+                    (onClickEvent)="addUserShow()"></app-button>
+                <app-input [cssClass]="'w-100 remove-wrapper'" [control]="searchControl" [isFlotingLabel]="true"
+                    placeHolder="Search..." (onKeyupEvent)="onSearchItem($event)"></app-input>
+            </div>
+        </div>
+        <div class="px-0 pb-2 mt-3">
+            <div class="table-responsive scrollbar-table rounded-table">
+                <table class="table table-hover rounded-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Balance ({{totalBalance | indianNumber:0}})</th>
+                            <th scope="col">Request Amount ({{toalRequestBalance | indianNumber:0}})</th>
+                            <th scope="col">Available Balance ({{totalAvailableBalance | indianNumber:0}})</th>
+                            <th scope="col">Is Merchat</th>
+                            <th scope="col">Website</th>
+                            <th scope="col">Party Owner</th>
+                            <th scope="col">Third Party</th>
+                            <th scope="col">Limit</th>
+                            <th scope="col">Created Date</th>
+                            <th scope="padding">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="users.length > 0">
+                        <ng-container *ngFor="let data of users">
+                            <tr>
+                                <td class="padding">{{data.username}}</td>
+                                <td class="padding">{{data.balance}}</td>
+                                <td class="padding">{{data.request}}</td>
+                                <td class="padding">{{data.availablebalance}}</td>
+                                <td class="padding">{{data.ismerchant ? 'Yes' : 'No'}}</td>
+                                <td class="padding">{{data.websiteurl}}</td>
+                                <td class="padding">{{data.partyowner}}</td>
+                                <td class="padding"><div [innerHTML]="data.thirdparty ? formatThirdParty(data.thirdparty) : ''"></div></td>
+                                <td class="padding"><div [innerHTML]="data.limit ? formatLimit(data.limit) : ''"></div></td>
+                                <td class="padding">{{data.createddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                                <td class="no-padding">
+                                    <app-button [btntype]="'icon'" [color]="'white'" [cssClass]="'option-btn'"
+                                        [text]="''" [icon]="'more_vert'" [matMenuTriggerFor]="menu">
+                                    </app-button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="editUserInfo(data)">
+                                            <mat-icon>person</mat-icon>
+                                            <span>Edit User</span>
+                                        </button>
+                                        <button mat-menu-item (click)="addUserBalance(data)">
+                                            <mat-icon>paid</mat-icon>
+                                            <span>Add Balance</span>
+                                        </button>
+                                        <button mat-menu-item (click)="onAmountSetting(data)">
+                                            <mat-icon>rule</mat-icon>
+                                            <span>Set Amount Limit</span>
+                                        </button>
+                                        <button mat-menu-item (click)="onChangePassword(data)">
+                                            <mat-icon>lock</mat-icon>
+                                            <span>Change Password</span>
+                                        </button>
+                                        <button mat-menu-item (click)="onDisableAuth(data)">
+                                            <mat-icon>lock_open</mat-icon>
+                                            <span>Disable Authentication</span>
+                                        </button>
+                                        <button mat-menu-item (click)="onUserTransactionLog(data)">
+                                            <mat-icon>receipt_long</mat-icon>
+                                            <span>Transaction Logs</span>
+                                        </button>
+                                        <!-- <button mat-menu-item (click)="onUserHawalaLog(data)">
+                                            <mat-icon>receipt_long</mat-icon>
+                                            <span>Hawala Logs</span>
+                                        </button> -->
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                    <tbody *ngIf="users.length == 0">
+                        <tr>
+                            <td colspan="10" class="text-center">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex - 1"
+                [length]="length" *ngIf="users.length > 0" (page)="pageEvent = getServerData($event)"
+                showFirstLastButtons></mat-paginator>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="isForm">
+        <div class="d-flex flex-wrap justify-content-between mar-bot">
+            <div class="d-flex align-items-center title flex-grow-1 text-center text-md-start mb-2 mb-md-0">
+                <app-button [btntype]="'icon'" [color]="'white'" [cssClass]="'w-100 p-1 back-btn'" [text]="''"
+                    [icon]="'arrow_back_ios'" (onClickEvent)="isForm = false">
+                </app-button>
+                <h5 class="f-w-500 mb-0 mt-1">{{ userId ? 'Edit ' + this.formGroup.get('Username')?.value : 'Add User'}}</h5>
+            </div>
+        </div>
+        <form *ngIf="isForm" role="form" [formGroup]="formGroup" autocomplete="off" novalidate
+            class="p-2 mt-3 col-sm-12 col-md-9 col-lg-7 mx-auto justify-content-center">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <app-input [cssClass]="'w-100'" [isRequired]="true" [maxLength]="50" [inputCssClass]="'uppercase-input'"
+                        [control]="validator.convertToFormControl(formGroup.get('Username'))" [isFlotingLabel]="true"
+                        placeHolder="Username"></app-input>
+                </div>
+                <div class="col-md-6 col-12">
+                    <app-input [cssClass]="'w-100'" [isRequired]="true" [type]="'password'" [maxLength]="50"
+                        [control]="validator.convertToFormControl(formGroup.controls['Password'])" [isFlotingLabel]="true"
+                        placeHolder="Password"></app-input>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-12">
+                    <mat-checkbox class="example-margin mt-2" formControlName="IsMerchant">Is Merchant</mat-checkbox>
+                </div>
+                <div class="col-md-5 col-12">
+                    <app-input [cssClass]="'w-100'" [isRequired]="formGroup.controls['IsMerchant'].value"
+                        [control]="validator.convertToFormControl(formGroup.controls['WebsiteURL'])" [isFlotingLabel]="true"
+                        placeHolder="Website" [maxLength]="500"></app-input>
+                </div>
+                <div class="col-md-4 col-12">
+                    <app-dropdown [cssClass]="'w-100'" [isRequired]="true"
+                            [control]="validator.convertToFormControl(formGroup.controls['PartyOwner'])" [isFlotingLabel]="true"
+                            placeHolder="Select party owner" [list]="parties">
+                        </app-dropdown>
+                </div>
+            </div>
+            <div formArrayName="ThirdParty">
+                <div class="row" *ngFor="let group of thirdParty.controls; let i = index" [formGroupName]="i">
+                    <div class="col-md-6 col-12">
+                        <app-dropdown [cssClass]="'w-100'" [isRequired]="true"
+                            [control]="validator.convertToFormControl(group.get('AssignParty'))" [isFlotingLabel]="true"
+                            placeHolder="Select party" [list]="parties">
+                        </app-dropdown>
+                    </div>
+                    <div class="col-md-5 col-10">
+                        <app-input [cssClass]="'w-100'" [isRequired]="true" [maxLength]="3"
+                            [control]="validator.convertToFormControl(group.get('Commission'))" [isFlotingLabel]="true"
+                            placeHolder="Commission (%)"></app-input>
+                    </div>
+                    <div class="col-md-1 col-2">
+                        <app-button *ngIf="i === 0 && thirdParty.controls.length === 1" [btntype]="'mini-fab'" [color]="'primary'" [cssClass]="'w-100 mt-2'" [text]="''"
+                            [icon]="'add'" (onClickEvent)="addThirdParty()">
+                        </app-button>
+                        <app-button *ngIf="i > 0 && thirdParty.controls.length > 1" [btntype]="'mini-fab'" [color]="'primary'" [cssClass]="'w-100 mt-2'" [text]="''"
+                            [icon]="'delete'" (onClickEvent)="removeThirdParty(i)">
+                        </app-button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <app-button *ngIf="userId == 0" [color]="'primary'" [cssClass]="'w-50 p-1'" [text]="'Submit'"
+                    [btnDisable]="formGroup.invalid" (onClickEvent)="onAddUser(formGroup.value)">
+                </app-button>
+                <app-button *ngIf="userId > 0" [color]="'primary'" [cssClass]="'w-50 p-1'" [text]="'Update'"
+                    [btnDisable]="formGroup.invalid" (onClickEvent)="onEditUser(formGroup.value)">
+                </app-button>
+            </div>
+        </form>
+    </ng-container>
+</div>

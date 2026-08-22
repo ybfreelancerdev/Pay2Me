@@ -1,0 +1,28 @@
+.no-padding {
+  padding: 0px !important;
+  align-content: center;
+}
+.padding {
+  align-items: center;
+  color: #000;
+  align-content: center;
+}
+.table td, .table th {
+    vertical-align: middle !important;
+}
+.refund-tag {
+    background-color: #861f41;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 10px;
+}
+.nav.nav-pills {
+  justify-content: end !important;
+  width: 163px !important;
+  background-color: #d3d3d3 !important;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #861f41;
+}

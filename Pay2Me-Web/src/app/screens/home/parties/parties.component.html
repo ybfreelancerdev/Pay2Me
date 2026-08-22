@@ -1,0 +1,75 @@
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between mar-bot">
+        <div class="title flex-grow-1 align-content-center text-center text-md-start mb-2 mb-md-0">
+            <h5 class="f-w-500 m-0">Parties</h5>
+        </div>
+        <div class="d-flex flex-column flex-md-row align-items-center gap-2">
+            <app-button [cssClass]="'px-4'" [color]="'primary'" [text]="'Add Party'"
+                (onClickEvent)="newUser()"></app-button>
+            <app-input [cssClass]="'w-100 remove-wrapper'" [control]="searchControl" [isFlotingLabel]="true"
+                placeHolder="Search..." (onKeyupEvent)="onSearchItem($event)"></app-input>
+        </div>
+    </div>
+    <div class="px-0 pb-2 mt-3">
+        <div class="table-responsive scrollbar-table rounded-table">
+            <table class="table table-hover rounded-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Party code</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Balance ({{totalBalance}})</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="padding">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="users.length > 0">
+                    <ng-container *ngFor="let data of users">
+                        <tr>
+                            <td class="padding">{{data.partycode}}</td>
+                            <td class="padding">{{data.username}}</td>
+                            <td class="padding">{{data.balance}}</td>
+                            <td class="padding">{{data.createddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                            <td class="no-padding">
+                                <app-button [btntype]="'icon'" [color]="'white'" [cssClass]="'option-btn'" [text]="''"
+                                    [icon]="'more_vert'" [matMenuTriggerFor]="menu">
+                                </app-button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="editPartyInfo(data)">
+                                            <mat-icon>person</mat-icon>
+                                            <span>Edit Party</span>
+                                        </button>
+                                    <button mat-menu-item (click)="onChangePassword(data)">
+                                        <mat-icon>lock</mat-icon>
+                                        <span>Change Password</span>
+                                    </button>
+                                    <button mat-menu-item (click)="onDisableAuth(data)">
+                                        <mat-icon>lock_open</mat-icon>
+                                        <span>Disable Authentication</span>
+                                    </button>
+                                    <button mat-menu-item (click)="onUserTransactionLog(data)">
+                                        <mat-icon>receipt_long</mat-icon>
+                                        <span>Transaction Logs</span>
+                                    </button>
+                                    <!-- <button mat-menu-item (click)="onUserHawalaLog(data)">
+                                        <mat-icon>receipt_long</mat-icon>
+                                        <span>Hawala Logs</span>
+                                    </button> -->
+                                </mat-menu>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tbody *ngIf="users.length == 0">
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <span>No Record Found</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex - 1"
+            [length]="length" *ngIf="users.length > 0" (page)="pageEvent = getServerData($event)"
+            showFirstLastButtons></mat-paginator>
+    </div>
+</div>

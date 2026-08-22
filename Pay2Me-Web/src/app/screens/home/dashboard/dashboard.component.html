@@ -1,0 +1,234 @@
+<div class="container-fluid">
+    <div class="col-md-12 mt-3" *ngIf="notificationMSG">
+        <div class="alert alert-notification">
+            <div class="d-flex justify-content-between w-100">
+                <div class="d-flex slide-div align-items-center">
+                    <p class="words">
+                        {{notificationMSG}}
+                    </p>
+                </div>
+                <div>
+                    <img src="../../../../assets/images/speaker.svg" height="45" style="margin-top: -3px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-3" [ngClass]="notificationMSG ? '' : '' ">
+        <ng-container *ngIf="role == 'ADMIN'">
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.usersPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">groups</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Users</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.partiesPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">groups</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Parties</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.hawalaEntryPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">send</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Hawala Entry</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.hawalaLogsPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">history</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Hawala Logs</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.generalReportsPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">summarize</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">General Reports</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.allRequestsPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">bookmark</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">All Request</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.inprocessRequestsPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">hourglass_empty</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Inprocess</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.reportsPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">summarize</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Reports</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" (click)="onNotificationMessage()">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">notifications</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Notification</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" (click)="onPremiumAdsSetting()">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">ads_click</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Premium ads</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" (click)="onAmountSetting()">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">join_right</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Min Max Amount</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="role == 'USER'">
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.beneficiaryPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">account_balance</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Add Beneficiary</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4">
+                <div class="card pointer" [routerLink]="appModuleInterface.sendmoneyPath">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">paid</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Send Money</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="role == 'USER' || role == 'PARTY'">
+            <div class="col-xl-2 col-sm-6 mb-xl-0 pb-4" [routerLink]="appModuleInterface.transactionsPath">
+                <div class="card pointer">
+                    <div class="card-header p-3 pt-3">
+                        <div
+                            class="icon icon-lg icon-shape bg-gradient-primary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                            <i class="material-icons opacity-10">receipt_long</i>
+                        </div>
+                        <div class="text-end pt-1">
+                            <p class="text-sm mb-0 card-p text-capitalize">Transactions</p>
+                        </div>
+                    </div>
+                    <div class="card-footer p-1">
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

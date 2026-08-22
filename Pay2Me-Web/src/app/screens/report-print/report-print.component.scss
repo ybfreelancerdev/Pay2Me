@@ -1,0 +1,69 @@
+.bg-white {
+    background-color: #fff !important;
+
+    h5 {
+        color: #000 !important;
+    }
+}
+.report-print-table {
+    // margin-top: 15px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+th, td {
+    text-align: left;
+    padding: 8px !important;
+    border: 1px solid #ddd !important;
+    color: #000 !important;
+    font-size: 10px;
+}
+.pending-tag {
+    // background-color: #A7ACB3;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+    font-weight: 500;
+    color: #A7ACB3;
+    font-size: 10px;
+}
+.withdraw-tag {
+    // background-color: #FFC107;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+    font-weight: 500;
+    color: #FFC107;
+    font-size: 10px;
+}
+.refund-tag {
+    // background-color: #861f41;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+    font-weight: 500;
+    color: #861f41;
+    font-size: 10px;
+}
+.Confirm-tag {
+    // background-color: #6aa84f;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+    font-weight: 500;
+    color: #6aa84f;
+    font-size: 10px;
+}
+.Rejected-tag {
+    // background-color: #c00;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+    font-weight: 500;
+    color: #c00;
+    font-size: 10px;
+}
+.InProcess-tag {
+    // background-color: #4682B4;
+    // padding: 5px 10px;
+    // border-radius: 5px;
+    font-weight: 500;
+    color: #4682B4;
+    font-size: 10px;
+}

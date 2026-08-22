@@ -1,0 +1,46 @@
+.otp-wrap {
+  width: 100%;
+  padding: 0 16px;           /* keeps boxes off the very edge on tiny screens */
+}
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: clamp(6px, 2vw, 14px); /* responsive gap */
+  flex-wrap: wrap;            /* allows wrapping if space is ultra-tight */
+}
+
+/* Key: clamp width/height, not flex:1 */
+.otp-box {
+  width: clamp(38px, 9vw, 50px);
+  height: clamp(38px, 9vw, 50px);
+  box-sizing: border-box;
+
+  border: 1px solid #c2c2c2;
+  border-radius: 8px;
+
+  text-align: center;
+  font-size: clamp(16px, 5vw, 22px);
+  line-height: normal;
+
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  /* neutralize browser defaults that can break sizing */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.otp-box:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+/* Hard fallbacks if clamp/aspect-ratio not supported on very old WebViews */
+@media (max-width: 360px) {
+  .otp-box { width: 40px; height: 40px; font-size: 18px; }
+}
+@media (min-width: 768px) {
+  .otp-box { width: 56px; height: 56px; font-size: 20px; }
+}

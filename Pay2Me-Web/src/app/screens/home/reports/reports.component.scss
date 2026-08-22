@@ -1,0 +1,54 @@
+.no-padding {
+  padding: 0px !important;
+  align-content: center;
+}
+.padding {
+  align-items: center;
+  color: #000;
+  align-content: center;
+}
+.table td, .table th {
+    vertical-align: middle !important;
+}
+.pending-tag {
+    background-color: #A7ACB3;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 10px;
+}
+.withdraw-tag {
+    background-color: #FFC107;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 10px;
+}
+.refund-tag {
+    background-color: #861f41;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 10px;
+}
+.Confirm-tag {
+    background-color: #6aa84f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 10px;
+}
+.Rejected-tag {
+    background-color: #c00;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 10px;
+}
+.InProcess-tag {
+    background-color: #4682B4;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 10px;
+}

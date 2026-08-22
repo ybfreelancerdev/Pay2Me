@@ -1,0 +1,107 @@
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between px-3">
+        <div class="title flex-grow-1 text-center text-md-start mb-2 mb-md-0">
+            <h5 class="f-w-500 m-0">Reports</h5>
+        </div>
+        <div class="d-flex flex-column flex-md-row align-items-center gap-2">
+            <app-button [cssClass]="'px-4'" [color]="'primary'" [text]="'Print'"
+                (onClickEvent)="onPrint()"></app-button>
+            <app-input [cssClass]="'w-100 remove-wrapper'" [control]="searchControl" [isFlotingLabel]="true"
+                placeHolder="Search..." (onKeyupEvent)="onSearchItem($event)"></app-input>
+        </div>
+    </div>
+    <div class="px-0 pb-2 mt-3">
+        <div class="table-responsive scrollbar-table rounded-table">
+            <table class="table table-hover rounded-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Transaction Id</th>
+                        <th scope="col">ReferenceId</th>
+                        <th scope="col">Amount</th>
+                        <!-- <th scope="col">Account Details</th> -->
+                        <th scope="col">Descriptions</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Counter Party</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Remarks</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="reports.length > 0">
+                    <ng-container *ngFor="let data of reports">
+                        <tr>
+                            <td class="padding">{{data.username}}</td>
+                            <td class="padding">{{data.transactionid}}</td>
+                            <td class="padding">{{data.referenceid}}</td>
+                            <td class="padding">{{data.amount}}</td>
+                            <!-- <td class="padding">
+                                <ng-container *ngIf="data.accountno">
+                                    <div [innerHTML]="formatDesc(data)"></div>
+                                    <button class="close-button" mat-icon-button (click)="copyDetails(data)">
+                                        <mat-icon>content_copy</mat-icon>
+                                    </button>
+                                </ng-container>
+                            </td> -->
+                            <td class="padding">
+                                <ng-container *ngIf="data.accountno">
+                                    <div [innerHTML]="formatDesc(data)"></div>
+                                    <button class="close-button" mat-icon-button (click)="copyDetails(data)">
+                                        <mat-icon>content_copy</mat-icon>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="!data.accountno">
+                                    {{data.descriptions}}
+                                </ng-container>
+                            </td>
+                            <td class="padding">{{data.createddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                            <td class="padding">{{data.assignpartyname}}</td>
+                            <td class="padding">
+                                <span *ngIf="data.paymentstatus === 'Pending'"
+                                    class="pending-tag">{{data.paymentstatus}}</span>
+                                <span *ngIf="data.paymentstatus === 'Withdraw'"
+                                    class="withdraw-tag">{{data.paymentstatus}}</span>
+                                <span *ngIf="data.paymentstatus === 'Confirm'"
+                                    class="Confirm-tag">{{data.paymentstatus}}</span>
+                                <span *ngIf="data.paymentstatus === 'Refunded'"
+                                    class="refund-tag">{{data.paymentstatus}}</span>
+                                <span *ngIf="data.paymentstatus === 'Rejected'"
+                                    class="Rejected-tag">{{data.paymentstatus}}</span>
+                                <span *ngIf="data.paymentstatus === 'InProgress'"
+                                    class="InProcess-tag">In Progress</span>
+                            </td>
+                            <td class="padding">
+                                {{data.remarks}}
+                            </td>
+                            <td class="no-padding">
+                                <app-button [btntype]="'icon'" [color]="'white'" [cssClass]="'option-btn'" [text]="''"
+                                    [icon]="'more_vert'" [matMenuTriggerFor]="menu">
+                                </app-button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="onDetailInfo(data)">
+                                        <mat-icon>info</mat-icon>
+                                        <span>Details</span>
+                                    </button>
+                                    <button *ngIf="data.paymentstatus === 'Confirm' && data.accountno" mat-menu-item (click)="onRefund(data)">
+                                        <mat-icon>currency_exchange</mat-icon>
+                                        <span>Refund</span>
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tbody *ngIf="reports.length == 0">
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <span>No Record Found</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex - 1"
+            [length]="length" *ngIf="reports.length > 0" (page)="pageEvent = getServerData($event)"
+            showFirstLastButtons></mat-paginator>
+    </div>
+</div>

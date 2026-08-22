@@ -1,0 +1,41 @@
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mar-bot">
+        <div class="d-flex align-items-center title flex-grow-1 text-center text-md-start mb-2 mb-md-0">
+            <h5 class="f-w-500 mb-0 mt-1">Hawala Entry</h5>
+        </div>
+    </div>
+    <form role="form" [formGroup]="formGroup" autocomplete="off" novalidate
+        class="p-2 mt-3 col-sm-12 col-md-9 col-lg-7 mx-auto justify-content-center">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <app-dropdown [cssClass]="'w-100'" [isRequired]="true"
+                    [control]="validator.convertToFormControl(formGroup.controls['FromId'])" [isFlotingLabel]="true"
+                    placeHolder="Select debit party" [list]="hawalaParties">
+                </app-dropdown>
+            </div>
+            <div class="col-md-6 col-12">
+                <app-dropdown [cssClass]="'w-100'" [isRequired]="true"
+                    [control]="validator.convertToFormControl(formGroup.controls['ToId'])" [isFlotingLabel]="true"
+                    placeHolder="Select credit party" [list]="hawalaParties">
+                </app-dropdown>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <app-input [cssClass]="'w-100'" [isRequired]="true" [inputCssClass]="'uppercase-input'"
+                    [control]="validator.convertToFormControl(formGroup.get('Amount'))" [isFlotingLabel]="true"
+                    placeHolder="Enter amount" [maxLength]="10"></app-input>
+            </div>
+            <div class="col-md-6 col-12">
+                <app-input [cssClass]="'w-100'" [isRequired]="true" [inputCssClass]="'uppercase-input'"
+                    [control]="validator.convertToFormControl(formGroup.get('Remarks'))" [isFlotingLabel]="true"
+                    placeHolder="Enter remarks" [maxLength]="500"></app-input>
+            </div>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <app-button [color]="'primary'" [cssClass]="'w-30'" [text]="'Submit'" [btnDisable]="formGroup.invalid"
+                (onClickEvent)="onSubmit(formGroup.value)">
+            </app-button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+<ng-container *ngIf="btntype == ''">
+    <button mat-raised-button [color]="color" [class]="cssClass" (click)="onClick()"
+        [disabled]="btnDisable">{{text}}</button>
+</ng-container>
+<ng-container *ngIf="btntype == 'stroked'">
+    <button mat-stroked-button [color]="color" [class]="cssClass" (click)="onClick()"
+        [disabled]="btnDisable">{{text}}</button>
+</ng-container>
+<ng-container *ngIf="btntype == 'mini-fab'">
+    <button mat-mini-fab [color]="color" [class]="cssClass" [title]="title" (click)="onClick()" [disabled]="btnDisable">
+        <mat-icon>{{ icon }}</mat-icon>
+    </button>
+</ng-container>
+<ng-container *ngIf="btntype == 'icon'">
+    <button mat-icon-button [color]="color" [class]="cssClass" (click)="onClick()" [title]="title"
+        [disabled]="btnDisable">
+        <mat-icon>{{ icon }}</mat-icon>
+    </button>
+</ng-container>

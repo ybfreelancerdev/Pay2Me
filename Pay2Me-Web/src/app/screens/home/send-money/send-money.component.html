@@ -1,0 +1,61 @@
+<div class="container-fluid py-4">
+    <div class="col-sm-12 col-md-9 col-lg-5 mx-auto justify-content-center">
+        <div class="row">
+            <app-dropdown [cssClass]="'w-100'"
+                [control]="validator.convertToFormControl(beneficiaryControl)" [isFlotingLabel]="true"
+                placeHolder="Select Payee" [list]="beneficiariesMap" (onSelectionChangedEvent)="onSelectBeneficiary()">
+            </app-dropdown>
+        </div>
+    </div>
+    <div *ngIf="beneficiaryControl.value" class="mt-2 col-sm-12 col-md-9 col-lg-5 mx-auto justify-content-center p-4"
+        style="background-color: #861f41; border-radius: 10px;">
+        <div class="row" *ngIf="beneficiaryInfo">
+            <div class="col-md-12 col-12 text-center border-bottom">
+                <span>Payee</span>
+                <h4 class="mt-2">{{beneficiaryInfo.accountholdername}}</h4>
+                <h5>A/c No.{{beneficiaryInfo.accountno}}</h5>
+            </div>
+            <div class="col-md-4 col-12 mt-3">
+                <span>Name</span>
+                <h6>{{beneficiaryInfo.accountholdername}}</h6>
+            </div>
+            <div class="col-md-4 col-12 mt-3">
+                <span>IFSC</span>
+                <h6>{{beneficiaryInfo.ifsccode}}</h6>
+            </div>
+            <div class="col-md-4 col-12 mt-3">
+                <span>Bank</span>
+                <h6>{{beneficiaryInfo.bankname}}</h6>
+            </div>
+        </div>
+    </div>
+    <form *ngIf="beneficiaryControl.value" role="form" [formGroup]="formGroup" autocomplete="off" novalidate
+     class="p-2 mt-4 col-sm-12 col-md-5 col-lg-5 mx-auto justify-content-center">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <app-input [cssClass]="'w-100'" [isRequired]="true"
+                    [control]="validator.convertToFormControl(formGroup.get('Amount'))" [isFlotingLabel]="true"
+                    placeHolder="Transfer amount" [icon]="'paid'" [maxLength]="10"></app-input>
+            </div>
+            <div class="col-md-12 col-12 text-center">
+                <mat-label>Enter google authenticator code</mat-label>
+                <div class="mt-2 mb-4">
+                    <app-otp-input
+                        [length]="6"
+                        (otpChange)="onOtpChanged($event)"
+                    ></app-otp-input>
+                </div>
+            </div>
+            <div class="col-md-12 col-12 text-center pb-2" *ngIf="settingValue.isEnable">
+                <div class="alert alert-warning p-0 m-0">
+                    <p class="alert_warning_text">Only amount between Rs {{settingValue.minValue}} and Rs {{settingValue.maxValue}} will be accepted!</p>
+                </div>
+            </div>
+            <div class="col-md-12 col-12 text-center">
+                <app-button [color]="'primary'" [cssClass]="'w-50 p-1'" [text]="'Send Money'"
+                    [btnDisable]="formGroup.invalid" (onClickEvent)="onTransaction(formGroup.value)">
+                </app-button>
+            </div>
+        </div>
+    </form>
+</div>

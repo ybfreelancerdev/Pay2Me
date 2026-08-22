@@ -1,0 +1,29 @@
+<div class="dimention p-2">
+    <div class="d-flex align-items-center justify-content-between">
+        <h5 class="text-center mb-0 mx-3">Add User</h5>
+        <button mat-icon-button class="close-button" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <form role="form" [formGroup]="formGroup" autocomplete="off" novalidate class="text-start mt-4 mx-3 mb-4">
+        <app-input [cssClass]="'w-100'" [isRequired]="true" [maxLength]="50"
+            [control]="validator.convertToFormControl(formGroup.get('Username'))" [isFlotingLabel]="true"
+            placeHolder="Username"></app-input>
+
+        <app-input [cssClass]="'w-100 mt-2'" [isRequired]="true" [type]="'password'" [maxLength]="50"
+            [control]="validator.convertToFormControl(formGroup.controls['Password'])" [isFlotingLabel]="true"
+            placeHolder="Password"></app-input>
+
+        <mat-checkbox class="example-margin" formControlName="IsMerchant">Is Merchant</mat-checkbox>
+
+        <app-input [cssClass]="'w-100 mt-2'" [isRequired]="formGroup.controls['IsMerchant'].value"
+            [control]="validator.convertToFormControl(formGroup.controls['WebsiteURL'])" [isFlotingLabel]="true"
+            placeHolder="Website" [maxLength]="500"></app-input>
+
+        <div class="text-center mt-2">
+            <app-button [color]="'primary'" [cssClass]="'w-100 p-1'" [text]="'Submit'"
+                 [btnDisable]="formGroup.invalid" (onClickEvent)="onAddUser(formGroup.value)">
+            </app-button>
+        </div>
+    </form>
+</div>

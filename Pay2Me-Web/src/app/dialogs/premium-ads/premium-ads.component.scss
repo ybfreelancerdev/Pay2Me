@@ -1,0 +1,73 @@
+.dimention {
+//   height: 300px;
+  width: 400px;
+  //height: 100vh;
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+    width: 48px !important;
+    height: 48px !important;
+    padding: 10px !important;
+}
+.pngNote {
+    color: red;
+    font-size: 14px;
+}
+.pngNote2 {
+    color: #000;
+}
+.dropzone {
+    height: 100px;
+    min-width: 100px;
+    display: table;
+    background-color: #eee;
+    border: dashed 2px #aaa;
+    border-radius: 7px;
+}
+.centered {
+    text-align: center !important;
+}
+.text-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+.browse-button {
+    color: #00f;
+    cursor: pointer;
+}
+.btn-addd {
+  background-color: #861f41;
+  color: white;
+}
+
+.btn-addd:disabled,
+.btn-addd[disabled] {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .dimention {
+    width: 100%;
+  }
+
+  .dimention mat-dialog-actions {
+    display: block;
+  }
+}
+
+@media (max-width: 205px) {
+  .dimention {
+    width: unset;
+    display: unset;
+    max-width: 205px;
+  }
+
+  .btn-addd {
+    margin-top: 10px;
+  }
+}

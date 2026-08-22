@@ -1,0 +1,29 @@
+<div class="container bg">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card z-index-0 fadeIn3 fadeInBottom">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1 text-center">
+                    <!-- <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Call X</h4> -->
+                    <img class="login-logo" src="assets/images/new_logo.png" alt="Logo" />
+                </div>
+            </div>
+            <div class="card-body p-3 p-sm-4 text-center">
+                <form role="form" [formGroup]="formGroup" autocomplete="off" novalidate class="text-start mt-3">
+                    <app-input [cssClass]="'w-100'" [isRequired]="true" [maxLength]="50" [inputCssClass]="'uppercase-input'"
+                        [control]="validator.convertToFormControl(formGroup.get('username'))" [isFlotingLabel]="true"
+                        placeHolder="Username" [icon]="'person'"></app-input>
+
+                    <app-input [cssClass]="'w-100'" [isRequired]="true" [type]="'password'" [maxLength]="50"
+                    [control]="validator.convertToFormControl(formGroup.controls['password'])" [isFlotingLabel]="true"
+                    placeHolder="Password" [icon]="'visibility_off'" [isPassword]="true"></app-input>
+
+                    <div class="text-center">
+                        <app-button [color]="'primary'" [cssClass]="'w-100 p-1'" [text]="'Login'"
+                            (onClickEvent)="onloginClick(formGroup.value)" [btnDisable]="formGroup.invalid">
+                        </app-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

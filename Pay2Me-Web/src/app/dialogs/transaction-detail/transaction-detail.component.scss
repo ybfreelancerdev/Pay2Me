@@ -1,0 +1,118 @@
+.dimention {
+    //   height: 300px;
+    width: 400px;
+    //height: 100vh;
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+    width: 48px !important;
+    height: 48px !important;
+    padding: 10px !important;
+}
+
+.btn-addd {
+    background-color: #861f41;
+    color: white;
+}
+
+.btn-addd:disabled,
+.btn-addd[disabled] {
+    background-color: #cccccc;
+    color: #666666;
+}
+
+.mat-mdc-button:not(:disabled) {
+    color: white;
+}
+
+.dialog-content {
+    padding: 16px;
+}
+
+.transaction-card {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    display: block;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .label {
+        font-weight: 500;
+        color: #666;
+    }
+
+    .value {
+        font-weight: 600;
+        color: #222;
+    }
+
+    .amount {
+        color: #2e7d32;
+    }
+}
+/* ✅ Status Badge Styles */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+    min-width: 80px;
+    text-align: center;
+    color: #fff !important;
+}
+/* Color Mapping */
+.status-confirm {
+    background-color: #6aa84f; // green
+}
+
+.status-pending {
+    background-color: #A7ACB3; // amber
+}
+
+.status-refund {
+    background-color: #861f41; // blue
+}
+
+.status-withdraw {
+    background-color: #FFC107; // purple
+}
+
+.status-rejected {
+    background-color: #c00; // grey
+}
+.status-inprocess {
+    background-color: #4682B4; // grey
+}
+
+@media (max-width: 768px) {
+    .dimention {
+        width: 100%;
+    }
+
+    .dimention mat-dialog-actions {
+        display: block;
+    }
+}
+
+@media (max-width: 205px) {
+    .dimention {
+        width: unset;
+        display: unset;
+        max-width: 205px;
+    }
+
+    .btn-addd {
+        margin-top: 10px;
+    }
+}

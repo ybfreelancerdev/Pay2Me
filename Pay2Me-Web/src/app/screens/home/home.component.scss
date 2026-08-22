@@ -1,0 +1,82 @@
+.active-tab {
+    background-color: #22a2f2;
+
+    mat-icon {
+        color: #ffffff !important;
+    }
+
+    span {
+        color: #ffffff;
+    }
+}
+.app-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+/* notification-badge.component.css */
+.notification-container {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-container mat-icon {
+  color: #fff;
+  padding-top: 5px !important;
+}
+
+/* Badge styling */
+.badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #f44336; /* Material 'warn' color */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 10px;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.tab-icon {
+    margin-top: 5px;
+    font-size: 18px;
+    color: #fff;
+}
+.tab-name {
+    font-size: 14px;
+    color: #fff;
+}
+
+.profile-section {
+    text-align: center;
+    padding: 16px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px;
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+}
+
+.pt-4 {
+    padding-top: 4px !important;
+}
+
+.main {
+    background-color: #FFFFFF !important;
+}

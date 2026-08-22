@@ -1,0 +1,60 @@
+<div class="container-fluid py-4">
+    <div class="d-flex flex-wrap justify-content-between px-3">
+        <h5 class="f-w-500 text-center m-0">Hawala Transactions</h5>
+        <app-input [cssClass]="'w-100 remove-wrapper'" [control]="searchControl" [isFlotingLabel]="true"
+            placeHolder="Search..." (onKeyupEvent)="onSearchItem($event)"></app-input>
+    </div>
+    <div class="px-0 pb-2 mt-3">
+        <div class="table-responsive scrollbar-table rounded-table">
+            <table class="table table-hover rounded-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Reference Id</th>
+                        <th scope="col">Credit</th>
+                        <th scope="col">Debit</th>
+                        <th scope="col">Closing</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Remarks</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="transactions.length > 0">
+                    <ng-container *ngFor="let data of transactions">
+                        <tr>
+                            <td class="padding">{{data.referenceid}}</td>
+                            <td class="padding">{{data.camount}}</td>
+                            <td class="padding">{{data.damount}}</td>
+                            <td class="padding">{{data.closing}}</td>
+                            <td class="padding">{{data.createddate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                            <td class="padding">{{data.descriptions}}</td>
+                            <td class="padding">{{data.remarks}}</td>
+                            <td class="no-padding">
+                                <!-- <ng-container *ngIf="userRole !== 'PARTY' && (data.accountno != null) && (data.paymentstatus == 'Pending' ||
+                                data.paymentstatus == 'Refunded' ||
+                                data.paymentstatus == 'Rejected')">
+                                    <app-button [btntype]="'icon'" [color]="'white'" [cssClass]="'option-btn'" [text]="''"
+                                        [icon]="'receipt_long'" (onClickEvent)="seeTransactionReceipt(data)">
+                                    </app-button>
+                                </ng-container>
+                                <ng-container *ngIf="userRole !== 'PARTY'">
+                                    <mat-checkbox class="example-margin mt-2">Entry Check</mat-checkbox>
+                                </ng-container> -->
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tbody *ngIf="transactions.length == 0">
+                    <tr>
+                        <td colspan="10" class="text-center">
+                            <span>No Record Found</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex - 1"
+            [length]="length" *ngIf="transactions.length > 0" (page)="pageEvent = getServerData($event)"
+            showFirstLastButtons></mat-paginator>
+    </div>
+</div>

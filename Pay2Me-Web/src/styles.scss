@@ -1,0 +1,371 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// regular style toast
+//@import '~ngx-toastr/toastr';
+
+body {
+  // overflow: hidden;
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f8f8f8 !important;
+}
+.main-back {
+  .mat-icon {
+    margin-right: -10px !important;
+  }
+}
+.back-btn {
+  .mat-icon {
+    margin-left: 5px !important;
+    margin-bottom: 3px !important;
+  }
+}
+.option-btn {
+  .mat-icon {
+    margin-bottom: 3px !important;
+  }
+}
+.no-padding {
+  padding: 0px !important;
+}
+.mt-64 {
+  margin-top: 64px;
+}
+.text-black {
+    color: #333;
+}
+.f-w-500 {
+    font-weight: 500;
+}
+.font-11 {
+    font-size: 11px;
+}
+.font-15 {
+  font-size: 15px;
+}
+.font-18 {
+  font-size: 18px;
+}
+.table-icon {
+  padding-top: 8px;
+}
+.fix-sidenav {
+  position: fixed !important;
+  height: calc(100vh - 64px);
+  overflow: auto;
+  top: 64px !important;
+  z-index: 98 !important;
+}
+.circle-loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: rgba(247, 247, 247, 0.98);
+}
+
+.circle-loader {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  z-index: 1001;
+}
+
+.circle-loader:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #e74c3c;
+  -webkit-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
+
+.circle-loader:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #f9c922;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+.bg-light {
+  background-color: #ffffff !important;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #555 !important;
+}
+.btn-check:focus+.btn-primary,
+.btn-check:focus + .btn-primary,
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: #861f41 !important;
+}
+
+.mat-mdc-checkbox.mat-accent .mdc-checkbox--selected ~ .mdc-checkbox__ripple {
+  background: #861f41 !important;
+}
+
+.mat-mdc-checkbox.mat-accent .mdc-checkbox--selected ~ .mdc-checkbox__ripple {
+  background: #861f41 !important;
+}
+
+.mat-mdc-checkbox
+  .mdc-checkbox
+  .mdc-checkbox__native-control:enabled:checked
+  ~ .mdc-checkbox__background,
+.mat-mdc-checkbox
+  .mdc-checkbox
+  .mdc-checkbox__native-control:enabled:indeterminate
+  ~ .mdc-checkbox__background,
+.mat-mdc-checkbox
+  .mdc-checkbox
+  .mdc-checkbox__native-control[data-indeterminate="true"]:enabled
+  ~ .mdc-checkbox__background {
+  border-color: #861f41 !important;
+  background-color: #861f41 !important;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: #861f41 !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.disabled {
+  cursor: no-drop !important;
+}
+.mg-5 {
+  margin-top: 5px;
+}
+.uppercase-input {
+  text-transform: uppercase !important;
+}
+/* Global styles.css or specific component stylesheet */
+.mat-mdc-select-panel .mdc-list-item:hover {
+  background: rgba(0, 0, 0, 0.2) !important; /* hover color */
+}
+.mat-mdc-option:hover:not(.mdc-list-item--disabled), .mat-mdc-option:focus:not(.mdc-list-item--disabled), .mat-mdc-option.mat-mdc-option-active, .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mdc-list-item--disabled) {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+.mat-mdc-select-panel .mdc-list-item:hover .mdc-list-item__primary-text {
+  color: #000 !important;
+}
+.mat-mdc-select-panel .mdc-list-item--selected .mdc-list-item__primary-text {
+  color: #000 !important;
+}
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+.mat-toolbar.mat-primary {
+  background: #861f41 !important;
+  color: #fff;
+}
+.bg-gradient-primary {
+  background: #861f41 !important;
+}
+.table {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-bottom: 1rem !important;
+  color: #555 !important;
+  // background-color: transparent !important;
+}
+.table thead th {
+  vertical-align: bottom !important;
+  border-bottom: 1px solid #d3d3d3 !important;
+}
+.table td {
+  padding: 0.75rem;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  vertical-align: top !important;
+  // border-top: 1px solid #d3d3d3 !important;
+}
+.table th {
+  padding: 0.75rem !important;
+  vertical-align: top !important;
+}
+.table-hover>tbody>tr:hover>* {
+  color: #555 !important;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+mat-checkbox label, mat-slide-toggle label {
+  margin-bottom: 0;
+}
+.mat-mdc-button.mat-mdc-button-base, .mat-mdc-raised-button.mat-mdc-button-base, .mat-mdc-unelevated-button.mat-mdc-button-base, .mat-mdc-outlined-button.mat-mdc-button-base {
+    height: 45px;
+}
+.dimention .form-label, label {
+    margin-bottom: 0px !important;
+}
+.mat-mdc-icon-button.mat-mdc-button-base {
+    width: 48px !important;
+    height: 48px !important;
+    padding: 12px !important;
+}
+.ml-2 {
+  margin-left: 10px;
+}
+.remove-wrapper .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+}
+.mat-calendar-body-selected {
+    background-color: #017bba;
+    color: #fff;
+}
+.mat-mdc-fab:not(.mdc-fab--extended), .mat-mdc-mini-fab:not(.mdc-fab--extended) {
+  border-radius: 0 !important;
+}
+.mdc-fab:not(.mdc-fab--extended) {
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    background-color: #861f41;
+}
+.green-icon {
+  color: green !important;
+}
+.success-fab {
+  background-color: #51A351 !important;
+}
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+.margin-left-25 {
+    margin-left: 25px !important;
+}
+.margin-left-15 {
+    margin-right: 15px !important;
+}
+::ng-deep .mat-form-field-infix {
+  padding: 0.25em 0 !important; /* reduce vertical padding */
+}
+
+::ng-deep .mat-form-field {
+  margin-bottom: 0 !important;
+}
+table tr {
+  transition: background-color 0.3s ease;
+  border: 1px solid #A9A9A9 !important;
+}
+// .rounded-table { border-radius: 10px; border: 1px solid #A9A9A9 !important; }
+table tr td {
+  vertical-align: middle !important;
+}
+.table {
+  --bs-table-hover-bg: #ededed !important;
+}
+.data-table .table-hover tbody tr:hover,
+.table-hover thead tr:hover {
+  background-color: #ededed !important;
+}
+.mat-mdc-list-item-interactive:focus::before {
+  opacity: 0 !important;
+}
+.full-screen-dialog .mat-dialog-container {
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .fix-sidenav {
+    top: 56px !important;
+    height: calc(100vh - 57px);
+  }
+  .app-logo {
+    height: 35px !important;
+  }
+  .responsive-spacing {
+    margin-top: 1rem !important;   /* or padding-top: 1rem; */
+  }
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+}
+

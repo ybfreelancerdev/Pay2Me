@@ -1,0 +1,21 @@
+<div class="dimention p-2">
+    <div class="d-flex align-items-center justify-content-between">
+        <h5 class="text-center mb-0 mx-3">Add Balance</h5>
+        <button mat-icon-button class="close-button" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div class="col-md-12 col-12 mb-4 mt-4 text-center justify-content-center">
+        <form role="form" [formGroup]="formGroup" autocomplete="off" novalidate class="mt-4 mx-3">
+            <p *ngIf="data">Add Balance to : <b>{{data.username}}</b></p>
+
+            <app-input [cssClass]="'w-100'" [isRequired]="true"
+                [control]="validator.convertToFormControl(formGroup.controls['Amount'])" [isFlotingLabel]="true"
+                placeHolder="Enter amount" [maxLength]="10"></app-input>
+
+            <app-button [color]="'primary'" [cssClass]="'w-50 p-1'" [text]="'Submit'" [btnDisable]="formGroup.invalid"
+                (onClickEvent)="onSubmit(formGroup.value)">
+            </app-button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container" *ngIf="transactionInfo">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div *ngIf="redirectFrom == 'send-money'" class="d-flex justify-content-center my-1">
+                <mat-icon class="mt-2 pointer" (click)="onBack()">arrow_back</mat-icon>
+                <span class="backBtn pointer" (click)="onBack()">Back to send money</span>
+            </div>
+            <div *ngIf="redirectFrom == 'transactions'" class="d-flex justify-content-center my-1">
+                <mat-icon class="mt-2 pointer" (click)="onBack()">arrow_back</mat-icon>
+                <span class="backBtn pointer" (click)="onBack()">Back to transactions</span>
+            </div>
+            <div class="card border-0 shadow rounded-3 my-3">
+                <div class="card-body p-3 p-sm-4 text-center">
+                    <h3>Success!</h3>
+                    <p class="text-center fw-light">Transaction with reference id <b>{{transactionInfo.transactionid}}</b> processed successfully.</p>
+                    <img src="../../../../assets/images/circle.png" height="60" width="60" />
+                </div>
+                <div class="row text-center mx-3 p-3 mb-3" style="background-color: #861f41; border-radius: 10px;">
+                    <span class="fw-light">Payee</span>
+                    <h4>{{transactionInfo.accountholdername}}</h4>
+                    <h5>A/C No.{{transactionInfo.accountno}}</h5>
+                    <div class="row text-start mt-2">
+                        <div class="col-md-6 col-12">
+                            <span class="fw-light">Name</span>
+                            <h6>{{transactionInfo.accountholdername}}</h6>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <span class="fw-light">Bank name</span>
+                            <h6>{{transactionInfo.bankname}}</h6>
+                        </div>
+                    </div>
+                    <div class="row text-start">
+                        <div class="col-md-6 col-12">
+                            <span class="fw-light">IFSC</span>
+                            <h6>{{transactionInfo.ifsccode}}</h6>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <span class="fw-light">Transfer Amount</span>
+                            <h6 *ngIf="transactionInfo.amount">{{transactionInfo.amount}}</h6>
+                            <h6 *ngIf="transactionInfo.damount">{{transactionInfo.damount}}</h6>
+                            <h6 *ngIf="transactionInfo.camount">{{transactionInfo.camount}}</h6>
+                        </div>
+                    </div>
+                    <div class="row text-start">
+                        <div class="col-md-12 col-12">
+                            <span class="fw-light">Transaction Date</span>
+                            <h6>{{transactionInfo.createddate | date:'dd-MM-yyyy hh:mm a' }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

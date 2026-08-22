@@ -1,0 +1,58 @@
+<div class="dimention p-2">
+    <div class="d-flex align-items-center justify-content-between">
+        <h5 class="text-center mb-0 mx-3">Transaction Details</h5>
+        <button mat-icon-button class="close-button" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content class="dialog-content">
+        <div class="row">
+            <span class="label">Username:</span>
+            <span class="value">{{ data.username }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Account Number:</span>
+            <span class="value">{{ data.accountNumber }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Account Holder Name:</span>
+            <span class="value">{{ data.accountHolderName }}</span>
+        </div>
+        <div class="row">
+            <span class="label">IFSC Code:</span>
+            <span class="value">{{ data.ifscCode }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Bank Name:</span>
+            <span class="value">{{ data.bankName }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Amount:</span>
+            <span class="value amount">₹ {{ data.amount }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Assign Party</span>
+            <span class="value">{{ data.assignpartyname }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Transaction Id:</span>
+            <span class="value">{{ data.transactionId }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Latitude:</span>
+            <span class="value">{{ data.latitude }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Longitude:</span>
+            <span class="value">{{ data.longitude }}</span>
+        </div>
+        <div class="row">
+            <span class="label">IP Address:</span>
+            <span class="value">{{ data.ipAddress }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Status:</span>
+            <span class="value status-badge" [ngClass]="getStatusClass(data.status)">{{ data.status == 'InProgress' ? 'In Progress' : data.status }}</span>
+        </div>
+    </mat-dialog-content>
+</div>

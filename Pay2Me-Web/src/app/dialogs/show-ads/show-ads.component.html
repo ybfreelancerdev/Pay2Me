@@ -1,0 +1,7 @@
+<div class="dimention">
+    <div class="timer-overlay d-flex align-items-center">
+        Ad ends in {{ remainingTime }}s
+        <mat-icon *ngIf="remainingTime <= 5" class="mx-2 pointer" (click)="onCancel()">close</mat-icon>
+    </div>
+    <img [src]="imageUrl" alt="Preview" />
+</div>

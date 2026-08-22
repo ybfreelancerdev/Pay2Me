@@ -1,0 +1,13 @@
+<mat-label *ngIf="isLabel">{{placeHolder}}</mat-label>
+<mat-form-field [appearance]="appearance" [class]="cssClass" (autocomplete)="false">
+    <mat-label *ngIf="isFlotingLabel">{{placeHolder}}</mat-label>
+    <mat-select [formControl]="control" [required]="isRequired" [placeholder]="placeHolder" 
+    (selectionChange)="onSelectionChanged()" [disabled]="isdisabled">
+        <mat-option *ngFor="let item of list" [value]="item.id">
+            {{item.value}}
+        </mat-option>
+    </mat-select>
+    <mat-error *ngIf="isRequired && control.hasError('required') && control?.touched">
+        Input Required
+    </mat-error>
+</mat-form-field>

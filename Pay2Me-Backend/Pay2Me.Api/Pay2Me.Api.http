@@ -1,0 +1,6 @@
+@Pay2Me.Api_HostAddress = http://localhost:5043
+
+GET {{Pay2Me.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

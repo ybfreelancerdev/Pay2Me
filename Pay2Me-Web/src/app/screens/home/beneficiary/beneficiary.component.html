@@ -1,0 +1,111 @@
+<div class="container-fluid py-4">
+    <ng-container *ngIf="!formShow">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mar-bot">
+            <div class="title flex-grow-1 text-center text-md-start mb-2 mb-md-0">
+                <app-button [color]="'primary'" [cssClass]="''" [text]="'Add Beneficiary'"
+                    (onClickEvent)="(formShow = true) && initForm()">
+                </app-button>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-2 w-100 w-md-auto">
+                <app-input [cssClass]="'w-100 remove-wrapper'" [control]="searchControl" [isFlotingLabel]="true"
+                    placeHolder="Search..." (onKeyupEvent)="onSearchItem($event)"></app-input>
+            </div>
+        </div>
+        <div class="px-0 mt-4">
+            <div class="table-responsive scrollbar-table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Bank Name</th>
+                            <th scope="col">Account number</th>
+                            <th scope="col">Account holder name</th>
+                            <th scope="col">IFSC code</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="beneficiaries.length > 0">
+                        <ng-container *ngFor="let data of beneficiaries">
+                            <tr>
+                                <td class="padding">{{data.bankname}}</td>
+                                <td class="padding">{{data.accountno}}</td>
+                                <td class="padding">{{data.accountholdername}}</td>
+                                <td class="padding">{{data.ifsccode}}</td>
+                                <td class="no-padding">
+                                    <app-button [btntype]="'icon'" [matMenuTriggerFor]="menu" [color]="'white'" [cssClass]="'option-btn'"
+                                        [text]="''" [icon]="'more_vert'">
+                                    </app-button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="editBeneficiary(data)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Edit</span>
+                                        </button>
+                                        <button mat-menu-item (click)="deleteBeneficiary(data)">
+                                            <mat-icon>delete</mat-icon>
+                                            <span>Delete</span>
+                                        </button>
+                                    </mat-menu>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                    <tbody *ngIf="beneficiaries.length == 0">
+                        <tr>
+                            <td colspan="10" class="text-center">
+                                <span>No Record Found</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex - 1"
+                [length]="length" *ngIf="beneficiaries.length > 0" (page)="pageEvent = getServerData($event)"
+                showFirstLastButtons></mat-paginator>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="formShow">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mar-bot">
+            <div class="d-flex align-items-center title flex-grow-1 text-center text-md-start mb-2 mb-md-0">
+                <app-button [btntype]="'icon'" [color]="'white'" [cssClass]="'w-100 p-1 back-btn'" [text]="''"
+                    [icon]="'arrow_back_ios'" (onClickEvent)="formShow = false">
+                </app-button>
+                <h5 class="f-w-500 mb-0 mt-1">Add Beneficiary</h5>
+            </div>
+        </div>
+        <form role="form" [formGroup]="formGroup" autocomplete="off" novalidate
+            class="p-2 mt-3 col-sm-12 col-md-9 col-lg-7 mx-auto justify-content-center">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <app-input [cssClass]="'w-100'" [isRequired]="true" [inputCssClass]="'uppercase-input'"
+                        [control]="validator.convertToFormControl(formGroup.get('AccountNo'))" [isFlotingLabel]="true"
+                        placeHolder="Account number" [icon]="'account_balance'" [maxLength]="20"></app-input>
+                </div>
+                <div class="col-md-6 col-12">
+                    <app-input [cssClass]="'w-100'" [isRequired]="true"
+                        [control]="validator.convertToFormControl(formGroup.get('AccountHolderName'))"
+                        [isFlotingLabel]="true" placeHolder="Account holder name" [icon]="'person'"
+                        [maxLength]="50" [inputCssClass]="'uppercase-input'"></app-input>
+                </div>
+                <div class="col-md-6 col-12">
+                    <app-input [cssClass]="ifscValid ? 'w-100 green-icon' : 'w-100'" [isRequired]="true" (onKeyupEvent)="oncheckIFSCCode($event)"
+                        [control]="validator.convertToFormControl(formGroup.get('IFSCCode'))" [isFlotingLabel]="true" [inputCssClass]="'uppercase-input'"
+                        placeHolder="IFSC code" [icon]="ifscValid ? 'check_circle' : 'business'" [maxLength]="11"></app-input>
+                </div>
+                <div class="col-md-6 col-12">
+                    <app-input [cssClass]="'w-100 disabled'" [isRequired]="true" [isdisabled]="true" [inputCssClass]="'uppercase-input'"
+                        [control]="validator.convertToFormControl(formGroup.get('BankName'))" [isFlotingLabel]="true"
+                        placeHolder="Bank name" [icon]="'account_balance_wallet'" [maxLength]="50"></app-input>
+                </div>
+                <!-- <div class="col-md-4 col-12">
+                    <app-input [cssClass]="'w-100'" [isdisabled]="true" [isRequired]="true"
+                        [control]="validator.convertToFormControl(formGroup.get('BranchName'))" [isFlotingLabel]="true"
+                        placeHolder="Branch name" [icon]="'location_on'" [maxLength]="11"></app-input>
+                </div> -->
+            </div>
+            <div class="col-12 mt-3 text-center">
+                <app-button [color]="'primary'" [cssClass]="'w-30'" [text]="'Submit'" [btnDisable]="formGroup.invalid"
+                    (onClickEvent)="onSubmitBeneficiary(formGroup.value)">
+                </app-button>
+            </div>
+        </form>
+    </ng-container>
+</div>

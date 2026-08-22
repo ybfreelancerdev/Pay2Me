@@ -1,0 +1,36 @@
+<div class="dimention p-2" [ngStyle]="getStyle()">
+    <div class="d-flex align-items-center justify-content-between">
+        <h5 class="text-center mb-0 mx-3">Two-Factor Authentication</h5>
+        <button mat-icon-button class="close-button" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <!-- <mat-dialog-content class="mat-typography"> -->
+        <div class="col-md-12 col-12 text-center justify-content-center">
+            <ng-container *ngIf="qrCodeImage">
+                <p class="mt-3 mb-0">Download google authenticator app from play store or app store.</p>
+                <img style="height: 200px; width: 200px;" src="{{qrCodeImage}}" />
+                <p class="mt-2 mb-0">Scan the QR code on Google authenticator app.</p>
+            </ng-container>
+            <p class="mt-4 mb-0">Enter the code provided by the Google Authenticator app.</p>
+            <div class="mt-2 mb-5">
+                <app-otp-input [focus]="true" [length]="6" (otpChange)="onOtpChanged($event)"></app-otp-input>
+            </div>
+            <!-- <mat-form-field appearance="outline" class="col-10 col-md-10 mt-3">
+                <mat-label>Enter google authenticator code</mat-label>
+                <input matInput [formControl]="authCodeControl" mat-form name="Amount" required maxlength="6">
+                <mat-error *ngIf="authCodeControl?.hasError('required')">
+                    Input Required
+                </mat-error>
+                <mat-error *ngIf="authCodeControl?.hasError('pattern')">
+                    Invalid Input
+                </mat-error>
+            </mat-form-field> -->
+            <div class="pb-4 d-flex justify-content-center vertical-align-bottom">
+                <button class="p-3" style="color: white;background-color: red;" mat-button (click)="onCancel()">Cancel</button>
+                <button [disabled]="authCodeControl.invalid" class="btn-addd p-3 mx-3" mat-button
+                    cdkFocusInitial (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+    <!-- </mat-dialog-content> -->
+</div>

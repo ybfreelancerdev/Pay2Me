@@ -1,0 +1,14 @@
+<div class="otp-wrap">
+  <div class="otp-container">
+    <input
+        *ngFor="let ctrl of otpControls; let i = index"
+        class="otp-box"
+        maxlength="1"
+        #otpInput
+        [formControl]="ctrl"
+        (input)="onInput($event, i)"
+        (keydown)="onKeyDown($event, i)"
+        inputmode="numeric"
+    />
+  </div>
+</div>
