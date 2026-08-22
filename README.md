@@ -10,21 +10,22 @@ The application provides role-based access for **Admin, User, and Party**.
 
 ## Project Type
 
-* **Type:** Full-Stack Web Application
+* **Project Type:** Full-Stack Web Application
 * **Category:** FinTech / Financial Transaction Management
-* **Architecture:** Role-Based Enterprise Web Application
+* **Architecture:** Role-Based Enterprise Application
 * **Frontend:** Angular
 * **Backend:** ASP.NET Core Web API
 * **Database:** Microsoft SQL Server
-* **Authentication:** Role-based authentication with transaction authentication
-* **Payment Gateway:** Not integrated
-* **Real Money Transactions:** Not supported
+* **Data Access:** SQL Server Stored Procedures
+* **Authentication:** Role-Based Authentication + Transaction Authentication
+* **Payment Gateway:** None
+* **Real Money Transactions:** No
 
 ---
 
-## Technology Stack
+# Technology Stack
 
-### Frontend
+## Frontend
 
 * Angular
 * TypeScript
@@ -35,27 +36,112 @@ The application provides role-based access for **Admin, User, and Party**.
 * HTTP Client
 * Reactive Forms
 
-### Backend
+## Backend
 
 * ASP.NET Core Web API
 * C#
-* Entity Framework Core
 * RESTful APIs
-* Role-Based Authorization
+* Custom database helper/service layer
+* SQL Server Stored Procedure execution
+* JSON-based request/response handling
+* Role-based authorization
 
-### Database
+## Database
 
 * Microsoft SQL Server
-* Relational database design
-* Stored procedures / SQL queries where required
+* Stored Procedures
+* User-defined Table Types
+* Relational database
+* Transaction and ledger tables
 
 ---
 
-## User Roles
+# Backend Architecture
+
+The Pay2Me backend is built using **ASP.NET Core Web API** and uses SQL Server Stored Procedures as the primary database-access mechanism.
+
+A custom `Sp` database helper is used by the API to execute stored procedures and process their results.
+
+The helper provides functionality for:
+
+* Executing stored procedures with parameters
+* Executing stored procedures and returning table results
+* Returning string results
+* Executing stored procedures with logged-in user information
+* Passing IP address information for logging
+* Executing stored procedures with SQL Server Table-Valued Parameters
+* Converting SQL results into application-friendly data structures
+
+Example login operation:
+
+```csharp
+var loginResult = await _sp.ExecTable(
+    JsonConvert.SerializeObject(new
+    {
+        Username = modelObj.username,
+        Password = passwordHash
+    }),
+    "User_GetUser"
+);
+```
+
+The API passes the required parameters to the `User_GetUser` stored procedure and processes the returned SQL Server result.
+
+---
+
+# Database Access
+
+Pay2Me uses a **Stored Procedure-based database architecture**.
+
+Instead of putting SQL queries directly inside controllers, API operations call stored procedures through the database helper layer.
+
+Example:
+
+```text
+Angular
+   │
+   ▼
+ASP.NET Core API
+   │
+   ▼
+Controller
+   │
+   ▼
+SP / Database Helper
+   │
+   ▼
+SQL Server Stored Procedure
+   │
+   ▼
+SQL Server Database
+```
+
+Example stored procedure:
+
+```text
+User_GetUser
+```
+
+The same approach is used for other business operations such as:
+
+```text
+User Management
+Party Management
+Beneficiary Management
+Transactions
+Hawala
+Reports
+Settings
+Notifications
+```
+
+---
+
+# User Roles
 
 Pay2Me has three main roles.
 
-### 1. Admin
+## 1. Admin
 
 The Admin has complete control over the platform.
 
@@ -73,7 +159,7 @@ Admin can:
 * Configure party commissions
 * Review beneficiary transfer requests
 * Approve or reject transactions
-* Move transactions to in-progress status
+* Move transactions to In-Progress status
 * Manage Hawala transactions
 * Reverse Hawala transactions
 * View transaction logs
@@ -81,159 +167,194 @@ Admin can:
 * Configure broadcast notifications
 * Configure promotional/Premium advertisements
 
-### 2. User
+---
+
+## 2. User
 
 Users can:
 
-* Login to the system
+* Login
 * View dashboard notifications
 * Manage beneficiaries
 * Add bank beneficiary details
-* Initiate money-transfer requests
+* Initiate transfer requests
 * Verify transactions using authentication codes
-* View their balance
+* View their internal balance
 * View transaction history
 * View transaction status
 * View rejected transaction reasons
 
-### 3. Party
+---
 
-Parties have restricted access to the system.
+## 3. Party
+
+Parties have restricted access.
 
 Parties can:
 
 * Login
-* View their transactions
+* View their transaction logs
 * View transaction history
 * Monitor transactions associated with their account
 
 ---
 
-# Core Modules
+# Main Modules
 
-## Admin
+## Admin Modules
 
-The Admin module provides centralized management of the entire platform.
-
-Main functionality:
-
-* User Management
-* Party Management
-* Balance Management
-* Transaction Management
-* Transaction Limits
-* Commission Management
-* Hawala Management
-* Reports
-* Notifications
-* System Settings
-* Transaction Logs
-
----
-
-## User Management
-
-Admin can create and manage users.
-
-When creating a user, Admin can configure:
-
-* Username
-* Password
-* User details
-* Assigned parties
-* Party-specific commission
-* Transaction limit
-* Authentication settings
-
-A user can be associated with multiple parties.
-
----
-
-## Party Management
-
-Admin can create and manage parties.
+### Users
 
 Admin can:
 
-* Create party
-* Edit party
-* Change party password
+* Create users
+* Edit users
+* Change passwords
+* Enable/disable authentication
+* Set transaction limits
+* Assign parties
+* Configure party commissions
+* View user transaction logs
+* Manage user balances
+
+### Parties
+
+Admin can:
+
+* Create parties
+* Edit parties
+* Change party passwords
 * Enable/disable authentication
 * View party transaction logs
 * Associate parties with users
+
+### Hawala
+
+Admin can:
+
+* Create Hawala entries
+* Select debit account
+* Select credit account
+* Enter amount
+* Add remarks
+* View Hawala logs
+* Reverse/delete Hawala transactions
+
+### Reports
+
+Admin can view:
+
+* General transaction reports
+* Hawala reports
+* User reports
+* Pending requests
+* In-progress requests
+* Transaction logs
+
+### Settings
+
+Admin can configure:
+
+* Global transaction limits
+* Broadcast notifications
+* Premium advertisements
+* Authentication-related settings
+
+---
+
+# User-Party Relationship
+
+A user can have multiple parties associated with their account.
+
+For example:
+
+```text
+User T
+│
+├── Party A
+├── Party B
+└── Party C
+```
+
+Admin can configure a commission percentage for each user-party relationship.
+
+Example:
+
+```text
+User T
+│
+└── Party A
+      └── Commission: 1%
+```
+
+---
+
+# Beneficiary Management
+
+Users can add their bank beneficiaries.
+
+Beneficiary information may include:
+
+* Beneficiary name
+* Bank account number
+* Bank name
+* IFSC code
+* Other required banking information
+
+After adding a beneficiary, the user can initiate a transaction.
 
 ---
 
 # Beneficiary Transaction Flow
 
-Users can create bank beneficiaries and initiate transfer requests.
-
-### Step 1 — Add Beneficiary
-
-The user adds beneficiary information such as:
-
-* Beneficiary name
-* Bank name
-* Bank account number
-* IFSC code
-* Other required bank details
-
-### Step 2 — Send Money
-
-The user:
-
-1. Selects a beneficiary
-2. Enters the transfer amount
-3. Provides the required authentication code
-4. Submits the transaction
-
-### Step 3 — Balance Blocking
-
-When the request is submitted, the requested amount is temporarily **blocked from the user's available balance**.
-
-The amount is not permanently deducted at this stage.
-
-### Step 4 — Admin Verification
-
-The transaction is sent to Admin for verification.
-
-Admin can:
-
-* Approve
-* Reject
-* Move transaction to In-Progress
-* Assign a party where applicable
-
-### Step 5 — Approval
-
-When Admin approves the transaction:
-
-* The blocked amount is permanently deducted from the user's balance
-* The transaction is completed
-* The corresponding amount is recorded against the assigned party where applicable
-* Transaction logs are created
-
-### Step 6 — Rejection
-
-If Admin rejects the transaction:
-
-* The blocked amount is returned to the user's available balance
-* The transaction is marked as rejected
-* Admin must provide a rejection reason
-* The user can view the rejection reason
+```text
+User
+ │
+ ▼
+Select Beneficiary
+ │
+ ▼
+Enter Amount
+ │
+ ▼
+Enter Authentication Code
+ │
+ ▼
+Submit Request
+ │
+ ▼
+Amount Blocked
+ │
+ ▼
+Admin Verification
+ │
+ ├───────────────┐
+ ▼               ▼
+Approve        Reject
+ │               │
+ ▼               ▼
+Permanent       Amount
+Deduction       Restored
+ │               │
+ ▼               ▼
+Completed       Rejected
+```
 
 ---
 
-# Transaction Status
+# Transaction States
 
-Beneficiary transactions can have different states:
+Transactions can move through different states.
 
 ```text
 Pending
-   ↓
+   │
+   ▼
 In Progress
-   ↓
-Approved / Rejected
+   │
+   ├──────────► Approved
+   │
+   └──────────► Rejected
 ```
 
 ### Pending
@@ -242,23 +363,23 @@ The request has been submitted by the user and is waiting for Admin verification
 
 ### In Progress
 
-The transaction is being processed and the amount remains on hold.
+The request is being processed and the transaction amount remains on hold.
 
 ### Approved
 
-The transaction has been approved and the amount is permanently deducted.
+The transaction is approved and the blocked amount is permanently deducted.
 
 ### Rejected
 
-The transaction has been rejected and the blocked amount is returned to the user.
+The transaction is rejected and the blocked amount is returned to the user's available balance.
 
 ---
 
-# Hawala Module
+# Hawala Transaction Flow
 
-The Hawala module allows Admin to create internal balance transfers between users and parties.
+The Hawala module allows internal balance transfers between users and parties.
 
-Supported transaction directions include:
+Supported transaction types:
 
 ```text
 Party → Party
@@ -269,38 +390,49 @@ User → Party
 
 Admin selects:
 
-* Debit Party/User
-* Credit Party/User
+* Debit party/user
+* Credit party/user
 * Amount
-* Remark/Note
+* Remark
 
-When the transaction is created:
+The system performs the corresponding internal debit and credit operations.
+
+---
+
+# Hawala Example
+
+Suppose:
 
 ```text
-Debit Source
-     ↓
-Credit Destination
+Party A → Party B
+Amount = ₹10,000
 ```
 
-The amount is deducted from the selected debit account and added to the selected credit account.
+The system records:
 
-The transaction is then recorded in the Hawala logs.
+```text
+Party A
+- ₹10,000
+
+Party B
++ ₹10,000
+```
+
+The transaction is then available in Hawala logs.
 
 ---
 
 # Hawala Reversal
 
-Admin can delete/reverse a Hawala transaction.
+Admin can reverse a Hawala transaction.
 
-For example:
+Original transaction:
 
 ```text
-Original Transaction
-
 Party A
-   ↓
-₹10,000
-   ↓
+    │
+    │ ₹10,000
+    ▼
 Party B
 ```
 
@@ -308,46 +440,37 @@ After reversal:
 
 ```text
 Party B
-   ↓
-₹10,000
-   ↓
+    │
+    │ ₹10,000
+    ▼
 Party A
 ```
 
-The reversal restores the balances by creating the corresponding reverse ledger movement.
-
-This ensures that the original transaction can be cancelled without manually modifying balances.
+The reversal restores the internal balances by performing the opposite ledger movement.
 
 ---
 
-# Commission Management
+# Commission Calculation
 
-Users can have multiple parties associated with their account.
+A user may have multiple parties with different commission percentages.
 
-Admin can configure a commission percentage for each user-party relationship.
-
-### Example
-
-User **T** has:
+Example:
 
 ```text
-Party A
-Party B
+User T
+│
+├── Party A → 1%
+└── Party B → 2%
 ```
 
-Party A has a configured commission of:
+If Party A processes:
 
 ```text
-1%
+Transaction Amount = ₹10,000
+Commission = 1%
 ```
 
-If Party A processes a transaction of:
-
-```text
-₹10,000
-```
-
-The commission is:
+Commission:
 
 ```text
 ₹10,000 × 1% = ₹100
@@ -359,43 +482,41 @@ The configured commission is credited to the associated user's internal balance 
 
 # Transaction Limits
 
-Pay2Me supports transaction limits at multiple levels.
+Pay2Me supports transaction limits at both user and global levels.
 
-### User-Level Limit
+## User Transaction Limit
 
 Admin can configure the maximum transaction amount allowed for an individual user.
 
-### Global Limit
+## Global Transaction Limit
 
-Admin can configure a global transaction limit that applies across the platform.
+Admin can configure a global transaction limit applicable across the platform.
 
-The system can use these limits when validating new transaction requests.
+These limits can be validated before processing a new transaction request.
 
 ---
 
-# Notifications & Promotions
+# Notifications
 
 Admin can configure broadcast notifications that are displayed to users and parties after login.
 
-Examples include:
+Notifications can be used for:
 
 * System announcements
-* Important notifications
+* Important information
 * Maintenance notifications
 * Promotional messages
 * Premium advertisements
-
-The configured notification can be displayed on the user's dashboard after login.
 
 ---
 
 # Reports
 
-The Admin reporting module provides visibility into platform activity.
+The reporting module provides Admin with visibility into system activity.
 
 Reports include:
 
-* General transaction reports
+* General reports
 * Hawala reports
 * User reports
 * Pending transactions
@@ -407,53 +528,54 @@ Reports include:
 
 # Transaction Logs
 
-The system maintains transaction-related logs for monitoring and auditing purposes.
+The system maintains transaction logs for monitoring and auditing.
 
-Admin can view:
+Logs may include:
 
-* User transaction logs
-* Party transaction logs
-* Beneficiary transaction logs
-* Hawala logs
+* User transactions
+* Party transactions
+* Beneficiary transactions
+* Hawala transactions
 * Transaction status
 * Transaction amount
 * Transaction timestamps
-* Transaction remarks
+* Remarks
 * Rejection reasons
 * Reversal information
 
 ---
 
-# High-Level Transaction Architecture
+# High-Level Architecture
 
 ```text
-                    ┌──────────────┐
-                    │    Admin     │
-                    └──────┬───────┘
-                           │
-              ┌────────────┼────────────┐
-              │            │            │
-              ▼            ▼            ▼
-           Users         Parties      Reports
-              │            │
-              │            │
-              └──────┬─────┘
-                     │
-                     ▼
-              Transaction Engine
-                     │
-          ┌──────────┴──────────┐
-          │                     │
-          ▼                     ▼
-   Beneficiary Flow        Hawala Flow
-          │                     │
-          ▼                     ▼
-      Approval /            Debit /
-       Rejection             Credit
-          │                     │
-          └──────────┬──────────┘
-                     ▼
-               SQL Server
+                         ┌──────────────┐
+                         │    Angular   │
+                         │   Frontend   │
+                         └───────┬──────┘
+                                 │
+                                 │ HTTP / REST API
+                                 ▼
+                      ┌─────────────────────┐
+                      │   ASP.NET Core API  │
+                      └──────────┬──────────┘
+                                 │
+                                 ▼
+                      ┌─────────────────────┐
+                      │ Controllers /       │
+                      │ Business Logic      │
+                      └──────────┬──────────┘
+                                 │
+                                 ▼
+                      ┌─────────────────────┐
+                      │ Database Helper / SP│
+                      │ Execution Layer     │
+                      └──────────┬──────────┘
+                                 │
+                                 ▼
+                      ┌─────────────────────┐
+                      │ SQL Server          │
+                      │ Stored Procedures   │
+                      └─────────────────────┘
 ```
 
 ---
@@ -464,14 +586,25 @@ Admin can view:
 Pay2Me/
 │
 ├── frontend/
-│   └── Angular Application
+│   ├── src/
+│   ├── angular.json
+│   ├── package.json
+│   └── README.md
 │
 ├── backend/
-│   └── ASP.NET Core Web API
+│   ├── Controllers/
+│   ├── Data/
+│   ├── Helpers/
+│   ├── Models/
+│   ├── Services/
+│   ├── Pay2Me.API.csproj
+│   └── README.md
 │
 ├── database/
-│   ├── scripts/
-│   └── stored-procedures/
+│   ├── StoredProcedures/
+│   ├── Tables/
+│   ├── Types/
+│   └── Scripts/
 │
 ├── docs/
 │
@@ -485,14 +618,14 @@ Pay2Me/
 
 ## Prerequisites
 
-Make sure the following are installed:
+Install the following:
 
 * Node.js
 * npm
 * Angular CLI
 * .NET SDK
-* SQL Server
-* SQL Server Management Studio or another SQL client
+* Microsoft SQL Server
+* SQL Server Management Studio
 * Git
 
 ---
@@ -511,7 +644,7 @@ Install dependencies:
 npm install
 ```
 
-Configure the API URL in the appropriate Angular environment configuration.
+Configure the backend API URL in the Angular environment configuration.
 
 Run the application:
 
@@ -519,7 +652,7 @@ Run the application:
 ng serve
 ```
 
-The Angular application will normally be available at:
+The application will normally run at:
 
 ```text
 http://localhost:4200
@@ -535,13 +668,13 @@ Navigate to the backend directory:
 cd backend
 ```
 
-Restore dependencies:
+Restore .NET dependencies:
 
 ```bash
 dotnet restore
 ```
 
-Configure the SQL Server connection string in the appropriate configuration file.
+Configure the SQL Server connection string.
 
 Run the API:
 
@@ -549,13 +682,13 @@ Run the API:
 dotnet run
 ```
 
-The API URL depends on the configured ASP.NET Core environment and launch settings.
+The API URL depends on the configured ASP.NET Core launch settings.
 
 ---
 
 # Database Setup
 
-Create a SQL Server database for Pay2Me.
+Create the Pay2Me SQL Server database.
 
 Configure the connection string in the backend configuration.
 
@@ -569,26 +702,28 @@ Example:
 }
 ```
 
-Do not commit production database credentials or secrets to GitHub.
+Run the required database scripts and stored procedures before starting the application.
+
+> Never commit production database credentials, passwords, API keys, or other secrets to GitHub.
 
 ---
 
-# Security
+# Security Considerations
 
-Pay2Me contains financial-style transaction and balance management functionality.
+The application handles internal transaction and balance information.
 
-For production deployment, additional security controls should be implemented, including:
+Production deployments should include appropriate security controls such as:
 
 * Secure password hashing
-* JWT/access-token security
 * Role-based authorization
 * Two-factor authentication
-* API request validation
-* SQL injection protection
-* Audit logging
-* Rate limiting
-* Secure secret management
+* API authentication
 * HTTPS
+* Input validation
+* SQL injection protection
+* Rate limiting
+* Audit logging
+* Secure secret management
 * Database backup and recovery
 * Encryption of sensitive information
 
@@ -607,26 +742,25 @@ It does **not**:
 * Execute real bank transfers
 * Process real financial settlements
 
-Balances and transactions represented within the application are internal records maintained by the system.
+All balances and transactions represented in the system are **internal records maintained by the application**.
 
 ---
 
 # Future Enhancements
 
-Potential future improvements include:
+Potential future enhancements include:
 
 * Advanced audit trail
-* Enhanced transaction analytics
-* Exportable reports
-* Dashboard charts
-* Advanced notification management
-* Multi-level approval workflows
+* Dashboard analytics
+* Advanced transaction reporting
+* Report export
 * Automated reconciliation
 * Enhanced authentication
 * API documentation with Swagger/OpenAPI
-* Automated testing
-* Docker deployment
+* Automated unit and integration testing
+* Docker support
 * CI/CD pipeline
+* Enhanced monitoring and logging
 
 ---
 
