@@ -72,21 +72,6 @@ The helper provides functionality for:
 * Executing stored procedures with SQL Server Table-Valued Parameters
 * Converting SQL results into application-friendly data structures
 
-Example login operation:
-
-```csharp
-var loginResult = await _sp.ExecTable(
-    JsonConvert.SerializeObject(new
-    {
-        Username = modelObj.username,
-        Password = passwordHash
-    }),
-    "User_GetUser"
-);
-```
-
-The API passes the required parameters to the `User_GetUser` stored procedure and processes the returned SQL Server result.
-
 ---
 
 # Database Access
