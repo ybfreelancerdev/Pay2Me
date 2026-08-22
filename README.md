@@ -74,6 +74,135 @@ The helper provides functionality for:
 
 ---
 
+## High-Level Architecture
+
+                         ┌──────────────────────────────┐
+                         │          PAY2ME              │
+                         │   Financial Transaction      │
+                         │      Management Platform     │
+                         └──────────────┬───────────────┘
+                                        │
+                    ┌───────────────────┴───────────────────┐
+                    │                                       │
+             ┌──────▼──────┐                         ┌──────▼──────┐
+             │    ADMIN    │                         │    USER     │
+             │   PORTAL    │                         │   PORTAL    │
+             └──────┬──────┘                         └──────┬──────┘
+                    │                                       │
+                    │                  ┌────────────────────┘
+                    │                  │
+             ┌──────▼──────────────────▼──────┐
+             │          ANGULAR FRONTEND       │
+             │                                │
+             │  • Authentication              │
+             │  • User Management             │
+             │  • Party Management            │
+             │  • Beneficiary Management       │
+             │  • Transactions                │
+             │  • Hawala                      │
+             │  • Reports                     │
+             │  • Notifications               │
+             │  • Settings                    │
+             └────────────────┬───────────────┘
+                              │
+                         HTTP / REST API
+                              │
+                    ┌─────────▼─────────┐
+                    │  ASP.NET CORE    │
+                    │     WEB API      │
+                    │                  │
+                    │  Controllers     │
+                    │  Business Logic  │
+                    │  Authorization   │
+                    │  Validation      │
+                    └─────────┬─────────┘
+                              │
+                              ▼
+                    ┌─────────────────────┐
+                    │   DATABASE HELPER   │
+                    │                     │
+                    │   SP Execution      │
+                    │   Table Results     │
+                    │   String Results    │
+                    │   TVP Support       │
+                    │   User Context      │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │     SQL SERVER      │
+                    │                     │
+                    │  Stored Procedures  │
+                    │  Users              │
+                    │  Parties            │
+                    │  Beneficiaries      │
+                    │  Transactions       │
+                    │  Hawala             │
+                    │  Reports / Logs     │
+                    │  Settings           │
+                    └─────────────────────┘
+
+---
+
+## Transaction Flow
+
+                    ┌─────────────────┐
+                    │      USER       │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Select / Create │
+                    │   Beneficiary   │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Enter Transfer  │
+                    │     Amount      │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Authentication  │
+                    │     Code        │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Submit Transfer │
+                    │     Request     │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │     PENDING     │
+                    │ Amount Blocked  │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │      ADMIN      │
+                    │    VERIFICATION │
+                    └────────┬────────┘
+                             │
+                    ┌────────┴────────┐
+                    │                 │
+                  APPROVE           REJECT
+                    │                 │
+                    ▼                 ▼
+             ┌─────────────┐   ┌─────────────┐
+             │ IN PROGRESS │   │   REJECTED  │
+             └──────┬──────┘   │Amount Return│
+                    │          └─────────────┘
+                    ▼
+             ┌─────────────┐
+             │   APPROVED  │
+             │   Completed │
+             └─────────────┘
+
+---
+
 # Database Access
 
 Pay2Me uses a **Stored Procedure-based database architecture**.
